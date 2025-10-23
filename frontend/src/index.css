@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,3 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 @import "tailwindcss";
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: black;
+  background-color: white;
+  overflow-x: hidden;
+}
