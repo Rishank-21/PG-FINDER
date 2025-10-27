@@ -70,10 +70,10 @@ const Navbar = () => {
           </ul>
 
           <div className="flex items-center space-x-6">
-            <div className="items-center">
+            <Link to={'/profile'} className="items-center">
               <IoPersonSharp className="text-2xl items-center" />
               <p className="text-xs cursor-pointer">Profile</p>
-            </div>
+            </Link>
             <Link
               to={"/login"}
               className="border w-20 text-xl text-center h-10 rounded cursor-pointer"
@@ -95,10 +95,10 @@ const Navbar = () => {
             <Link to={"/about"}> <li className="cursor-pointer">About</li></Link>
           </ul>
           <div className="flex flex-col space-y-2 w-full">
-            <div className="flex items-center space-x-2">
+            <Link to={'/profile'} className="flex items-center space-x-2">
               <IoPersonSharp className="text-2xl text-white" />
               <p className="text-white cursor-pointer">Profile</p>
-            </div>
+            </Link>
             <Link
               to={"/login"}
               className="border w-25 text-center h-10 rounded cursor-pointer text-white"

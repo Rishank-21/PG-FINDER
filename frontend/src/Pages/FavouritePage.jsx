@@ -26,7 +26,7 @@ const FavoritesPage = () => {
 
   return (
     <div ref={containerRef} className="my-20 p-4 md:p-8 min-h-screen bg-gray-50">
-      <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">My Favorites</h2>
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-600 mb-8 text-center">My Favorites</h2>
 
       {favorites.length === 0 ? (
         <p className="text-center text-gray-500">You have no favorites yet 😕</p>
@@ -53,7 +53,7 @@ const FavoritesPage = () => {
                 <span className="text-indigo-600 font-bold text-sm md:text-base">₹{hotel.price}/night</span>
               </div>
               <div> 
-                 <button className="text-xs md:text-sm bg-indigo-600 text-white px-3 py-1.5 rounded-full hover:bg-indigo-700 transition-all float-end mb-2 mr-2 ">
+                 <button className="text-xs md:text-sm bg-indigo-600 text-white px-3 py-1.5 rounded-full hover:bg-indigo-700 transition-all float-end mb-4 mr-2 ">
                   View
                 </button>
                  </div>

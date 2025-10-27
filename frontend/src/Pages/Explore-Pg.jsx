@@ -4,119 +4,14 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useStore } from "../Context/StoreContext";
+import { Link } from "react-router-dom";
+import { pgs } from "../Temp Data/Data";
+import {cities} from '../Temp Data/allCities'
+import {allStates} from '../Temp Data/allStates'
+
 gsap.registerPlugin(ScrollTrigger);
 
-// Example PG listings
-const pgs = [
-  {
-    id: 1,
-    name: "Sunrise PG",
-    city: "Pune",
-    state: "Maharashtra",
-    price: 7000,
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
-  },
-  {
-    id: 2,
-    name: "Comfort Stay PG",
-    city: "Bengaluru",
-    state: "Karnataka",
-    price: 6500,
-    image: "https://images.unsplash.com/photo-1560347876-aeef00ee58a1?w=800",
-  },
-  {
-    id: 3,
-    name: "City Center PG",
-    city: "Delhi",
-    state: "Delhi",
-    price: 6000,
-    image: "https://images.unsplash.com/photo-1559599101-27bdb6bd7a2d?w=800",
-  },
-  {
-    id: 4,
-    name: "Green Hostel PG",
-    city: "Goa",
-    state: "Goa",
-    price: 5500,
-    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800",
-  },
-  {
-    id: 5,
-    name: "Student Nest",
-    city: "Chennai",
-    state: "Tamil Nadu",
-    price: 7200,
-    image: "https://images.unsplash.com/photo-1501117716987-c8e1ecb210f9?w=800",
-  },
-  {
-    id: 6,
-    name: "Metro PG",
-    city: "Mumbai",
-    state: "Maharashtra",
-    price: 8000,
-    image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20d?w=800",
-  },
-];
 
-// Full India city/state lists
-const allStates = [
-  "Andhra Pradesh",
-  "Arunachal Pradesh",
-  "Assam",
-  "Bihar",
-  "Chhattisgarh",
-  "Goa",
-  "Gujarat",
-  "Haryana",
-  "Himachal Pradesh",
-  "Jharkhand",
-  "Karnataka",
-  "Kerala",
-  "Madhya Pradesh",
-  "Maharashtra",
-  "Manipur",
-  "Meghalaya",
-  "Mizoram",
-  "Nagaland",
-  "Odisha",
-  "Punjab",
-  "Rajasthan",
-  "Sikkim",
-  "Tamil Nadu",
-  "Telangana",
-  "Tripura",
-  "Uttar Pradesh",
-  "Uttarakhand",
-  "West Bengal",
-  "Delhi",
-  "Jammu and Kashmir",
-  "Ladakh",
-];
-
-const allCities = [
-  "Mumbai",
-  "Delhi",
-  "Bengaluru",
-  "Chennai",
-  "Kolkata",
-  "Hyderabad",
-  "Pune",
-  "Jaipur",
-  "Goa",
-  "Manali",
-  "Chandigarh",
-  "Lucknow",
-  "Varanasi",
-  "Ahmedabad",
-  "Indore",
-  "Surat",
-  "Coimbatore",
-  "Nagpur",
-  "Patna",
-  "Bhubaneswar",
-  "Thiruvananthapuram",
-  "Dehradun",
-];
 
 const ExplorePGs = () => {
   const [search, setSearch] = useState("");
@@ -219,9 +114,9 @@ const ExplorePGs = () => {
             className="w-full md:w-1/4 border border-gray-300 rounded-full px-3 py-2 text-sm md:text-base outline-none"
           >
             <option value="">All Cities</option>
-            {allCities.map((c, i) => (
-              <option key={i} value={c}>
-                {c}
+            {cities.name.map((c, i) => (
+              <option key={i} value={c.name}>
+                {c.name}
               </option>
             ))}
           </select>
@@ -298,9 +193,9 @@ const ExplorePGs = () => {
                 <span className="text-indigo-600 font-bold text-sm md:text-base">
                   ₹{pg.price}/month
                 </span>
-                <button className="text-xs md:text-sm bg-indigo-600 text-white px-3 py-1.5 rounded-full hover:bg-indigo-700 transition-all">
+                <Link to={`/property/pg/${pg.id}`} className="text-xs md:text-sm bg-indigo-600 text-white px-3 py-1.5 rounded-full hover:bg-indigo-700 transition-all">
                   View
-                </button>
+                </Link>
               </div>
             </div>
           </div>

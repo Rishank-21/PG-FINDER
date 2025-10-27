@@ -4,120 +4,13 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useStore } from "../Context/StoreContext";
-
+import { Link } from "react-router-dom";
+import { hotels } from "../Temp Data/Data";
+import { cities } from "../Temp Data/allCities";
+import { allStates } from "../Temp Data/allStates";
 gsap.registerPlugin(ScrollTrigger);
 
 
-const hotels = [
-  {
-    id: 1,
-    name: "Ocean View Resort",
-    city: "Goa",
-    state: "Goa",
-    price: 3200,
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
-  },
-  {
-    id: 2,
-    name: "Royal Heritage Hotel",
-    city: "Jaipur",
-    state: "Rajasthan",
-    price: 3500,
-    image: "https://images.unsplash.com/photo-1560347876-aeef00ee58a1?w=800",
-  },
-  {
-    id: 3,
-    name: "City Light Hotel",
-    city: "Delhi",
-    state: "Delhi",
-    price: 4100,
-    image: "https://images.unsplash.com/photo-1559599101-27bdb6bd7a2d?w=800",
-  },
-  {
-    id: 4,
-    name: "Mountain Retreat Hotel",
-    city: "Manali",
-    state: "Himachal Pradesh",
-    price: 3800,
-    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800",
-  },
-  {
-    id: 5,
-    name: "Luxury Stay Hotel",
-    city: "Mumbai",
-    state: "Maharashtra",
-    price: 5000,
-    image: "https://images.unsplash.com/photo-1501117716987-c8e1ecb210f9?w=800",
-  },
-  {
-    id: 6,
-    name: "Palm Beach Hotel",
-    city: "Chennai",
-    state: "Tamil Nadu",
-    price: 3700,
-    image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20d?w=800",
-  },
-];
-
-// Full India city/state lists
-const allStates = [
-  "Andhra Pradesh",
-  "Arunachal Pradesh",
-  "Assam",
-  "Bihar",
-  "Chhattisgarh",
-  "Goa",
-  "Gujarat",
-  "Haryana",
-  "Himachal Pradesh",
-  "Jharkhand",
-  "Karnataka",
-  "Kerala",
-  "Madhya Pradesh",
-  "Maharashtra",
-  "Manipur",
-  "Meghalaya",
-  "Mizoram",
-  "Nagaland",
-  "Odisha",
-  "Punjab",
-  "Rajasthan",
-  "Sikkim",
-  "Tamil Nadu",
-  "Telangana",
-  "Tripura",
-  "Uttar Pradesh",
-  "Uttarakhand",
-  "West Bengal",
-  "Delhi",
-  "Jammu and Kashmir",
-  "Ladakh",
-];
-
-const allCities = [
-  "Mumbai",
-  "Delhi",
-  "Bengaluru",
-  "Chennai",
-  "Kolkata",
-  "Hyderabad",
-  "Pune",
-  "Jaipur",
-  "Goa",
-  "Manali",
-  "Chandigarh",
-  "Lucknow",
-  "Varanasi",
-  "Ahmedabad",
-  "Indore",
-  "Surat",
-  "Coimbatore",
-  "Nagpur",
-  "Patna",
-  "Bhubaneswar",
-  "Thiruvananthapuram",
-  "Dehradun",
-];
 
 const ExploreHotels = () => {
   const [search, setSearch] = useState("");
@@ -224,11 +117,11 @@ const ExploreHotels = () => {
             value={cityFilter}
             onChange={handleCity}
             className="w-full md:w-1/4 border border-gray-300 rounded-full px-3 py-2 text-sm md:text-base outline-none"
-          >
-            <option value="">All Cities</option>
-            {allCities.map((c, i) => (
-              <option key={i} value={c}>
-                {c}
+          >A
+            <option value="">All Cities</option>           
+             {cities.map((c, i) => (
+              <option key={i} value={c.name}>
+                {c.name}
               </option>
             ))}
           </select>
@@ -306,9 +199,9 @@ const ExploreHotels = () => {
                 <span className="text-indigo-600 font-bold text-sm md:text-base">
                   ₹{hotel.price}/night
                 </span>
-                <button className="text-xs md:text-sm bg-indigo-600 text-white px-3 py-1.5 rounded-full hover:bg-indigo-700 transition-all">
+                <Link to={`/property/hotel/${hotel.id}`} className="text-xs md:text-sm bg-indigo-600 text-white px-3 py-1.5 rounded-full hover:bg-indigo-700 transition-all">
                   View
-                </button>
+                </Link>
               </div>
             </div>
           </div>

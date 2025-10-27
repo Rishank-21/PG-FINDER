@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -34,17 +35,17 @@ const Footer = () => {
             <div>
               <h4 className="font-medium text-gray-100">Explore</h4>
               <ul className="mt-3 text-sm text-gray-300 space-y-2">
-                <li><a href="/hotels" className="hover:text-white">Hotels</a></li>
-                <li><a href="/pg" className="hover:text-white">PG for Boys</a></li>
-                <li><a href="/pg-girls" className="hover:text-white">PG for Girls</a></li>
-                <li><a href="/rent-rooms" className="hover:text-white">Rooms on Rent</a></li>
+                <li><Link  to={'/explore/hotels'} className="hover:text-white">Hotels</Link></li>
+                <li><Link to={'/explore/pgs'} className="hover:text-white">PG for Boys</Link></li>
+                <li><Link to={'/explore/pgs'} className="hover:text-white">PG for Girls</Link></li>
+                <li><Link to={'/explore/rooms'} className="hover:text-white">Rooms on Rent</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-medium text-gray-100">Company</h4>
               <ul className="mt-3 text-sm text-gray-300 space-y-2">
-                <li><a href="/about" className="hover:text-white">About Us</a></li>
+                <li><Link to={'/about'} className="hover:text-white">About Us</Link></li>
                 <li><a href="/careers" className="hover:text-white">Careers</a></li>
                 <li><a href="/blog" className="hover:text-white">Blog</a></li>
                 <li><a href="/terms" className="hover:text-white">Terms & Privacy</a></li>
