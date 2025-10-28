@@ -5,16 +5,15 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useStore } from "../Context/StoreContext";
 import { Link } from "react-router-dom";
-import { rooms} from "../Temp Data/Data";
-import { cities } from "../Temp Data/allCities";
-import { allStates } from "../Temp Data/allStates";
-gsap.registerPlugin(ScrollTrigger);
+import { rooms } from "../Temp Data/Data";
+import { developedStates } from "../Temp Data/Places"
 
+gsap.registerPlugin(ScrollTrigger);
 
 const ExploreRooms = () => {
   const [search, setSearch] = useState("");
-  const [cityFilter, setCityFilter] = useState("");
   const [stateFilter, setStateFilter] = useState("");
+  const [cityFilter, setCityFilter] = useState("");
   const [maxPrice, setMaxPrice] = useState(15000);
   const [filtered, setFiltered] = useState(rooms);
   const { favorites, toggleFavorite } = useStore();
@@ -22,11 +21,11 @@ const ExploreRooms = () => {
   const containerRef = useRef(null);
   const cardsRef = useRef([]);
 
-  // Filter logic
+  // ✅ Filter Logic
   const handleFilter = (
     searchValue = search,
-    city = cityFilter,
     state = stateFilter,
+    city = cityFilter,
     price = maxPrice
   ) => {
     const value = searchValue.toLowerCase();
@@ -35,8 +34,8 @@ const ExploreRooms = () => {
         (r) =>
           (r.name.toLowerCase().includes(value) ||
             r.city.toLowerCase().includes(value)) &&
-          (city === "" || r.city === city) &&
           (state === "" || r.state === state) &&
+          (city === "" || r.city === city) &&
           r.price <= price
       )
     );
@@ -45,43 +44,39 @@ const ExploreRooms = () => {
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearch(value);
-    handleFilter(value, cityFilter, stateFilter, maxPrice);
-  };
-
-  const handleCity = (e) => {
-    const value = e.target.value;
-    setCityFilter(value);
-    handleFilter(search, value, stateFilter, maxPrice);
+    handleFilter(value, stateFilter, cityFilter, maxPrice);
   };
 
   const handleState = (e) => {
     const value = e.target.value;
     setStateFilter(value);
-    handleFilter(search, cityFilter, value, maxPrice);
+    setCityFilter(""); // reset city jab state change ho
+    handleFilter(search, value, "", maxPrice);
+  };
+
+  const handleCity = (e) => {
+    const value = e.target.value;
+    setCityFilter(value);
+    handleFilter(search, stateFilter, value, maxPrice);
   };
 
   const handlePrice = (e) => {
     const value = Number(e.target.value);
     setMaxPrice(value);
-    handleFilter(search, cityFilter, stateFilter, value);
+    handleFilter(search, stateFilter, cityFilter, value);
   };
 
   const resetFilters = () => {
     setSearch("");
-    setCityFilter("");
     setStateFilter("");
+    setCityFilter("");
     setMaxPrice(15000);
     setFiltered(rooms);
   };
 
-  // GSAP animations
+  // ✅ GSAP animations
   useGSAP(() => {
-    gsap.from(".filter-section", {
-      opacity: 0,
-      y: -20,
-      duration: 0.8,
-      ease: "power3.out",
-    });
+    gsap.from(".filter-section", { opacity: 0, y: -20, duration: 0.8 });
     gsap.from(cardsRef.current, {
       y: 30,
       duration: 0.8,
@@ -89,6 +84,10 @@ const ExploreRooms = () => {
       scrollTrigger: { trigger: containerRef.current, start: "top 85%" },
     });
   }, []);
+
+  // ✅ Current state ki cities nikalna
+  const availableCities =
+    developedStates.find((s) => s.state === stateFilter)?.cities || [];
 
   return (
     <div
@@ -110,35 +109,36 @@ const ExploreRooms = () => {
             />
           </div>
 
-          {/* City */}
-          <select
-            value={cityFilter}
-            onChange={handleCity}
-            className="w-full md:w-1/4 border border-gray-300 rounded-full px-3 py-2 text-sm md:text-base outline-none"
-          >
-            <option value="">All Cities</option>
-            {cities.name.map((c, i) => (
-              <option key={i} value={c.name}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-
-          {/* State */}
+          {/* State Dropdown */}
           <select
             value={stateFilter}
             onChange={handleState}
             className="w-full md:w-1/4 border border-gray-300 rounded-full px-3 py-2 text-sm md:text-base outline-none"
           >
             <option value="">All States</option>
-            {allStates.map((s, i) => (
-              <option key={i} value={s}>
-                {s}
+            {developedStates.map((s, i) => (
+              <option key={i} value={s.state}>
+                {s.state}
               </option>
             ))}
           </select>
 
-          {/* Price */}
+          {/* City Dropdown (state ke hisab se) */}
+          <select
+            value={cityFilter}
+            onChange={handleCity}
+            disabled={!stateFilter}
+            className="w-full md:w-1/4 border border-gray-300 rounded-full px-3 py-2 text-sm md:text-base outline-none disabled:opacity-50"
+          >
+            <option value="">All Cities</option>
+            {availableCities.map((c, i) => (
+              <option key={i} value={c.name}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+
+          {/* Price Range */}
           <div className="flex flex-col w-full md:w-1/4">
             <label className="text-gray-700 text-xs md:text-sm font-medium mb-1">
               Max Price: ₹{maxPrice}
@@ -165,7 +165,7 @@ const ExploreRooms = () => {
         </div>
       </div>
 
-      {/* Listings */}
+      {/* Room Listings */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filtered.map((room, i) => {
           const isFav = (favorites || []).some((fav) => fav.id === room.id);
@@ -189,7 +189,7 @@ const ExploreRooms = () => {
                     className={
                       isFav
                         ? "text-red-500"
-                        : "text-grey-500 hover:text-red-500"
+                        : "text-gray-500 hover:text-red-500"
                     }
                   />
                 </button>
@@ -216,7 +216,6 @@ const ExploreRooms = () => {
             </div>
           );
         })}
-        ;
         {filtered.length === 0 && (
           <div className="col-span-full text-center text-gray-500 text-sm md:text-base">
             No rooms found 😕

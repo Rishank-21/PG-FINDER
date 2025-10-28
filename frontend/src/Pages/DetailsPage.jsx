@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -123,9 +123,9 @@ const PropertyDetails = () => {
             </span>
           </p>
 
-          <button className="mt-4 md:mt-0 px-8 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition-transform hover:scale-105">
+          <Link to={`/book/${category}/${property.id}`} className="mt-4 md:mt-0 px-8 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition-transform hover:scale-105">
             Book Now
-          </button>
+          </Link>
         </div>
       </div>
 

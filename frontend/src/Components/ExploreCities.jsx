@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useNavigate } from "react-router-dom";
-import { cities } from "../Temp Data/allCities";
+import { developedStates } from "../Temp Data/Places"; // your file
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,13 +13,19 @@ const ExploreCities = () => {
   const navigate = useNavigate();
   const [showAll, setShowAll] = useState(false);
 
-  // 🔥 Responsive limit: mobile = 6, desktop = 10
-  const [limit, setLimit] = useState(
-    window.innerWidth < 768 ? 6 : 10
+  // 🔹 Flatten all cities from developedStates into one array
+  const allCities = developedStates.flatMap((st) =>
+    st.cities.map((city) => ({
+      ...city,
+      state: st.state, // keep state info (for routing/filter if needed)
+    }))
   );
 
-  // Update limit on window resize
-  React.useEffect(() => {
+  // 🔥 Responsive limit
+  const [limit, setLimit] = useState(window.innerWidth < 768 ? 6 : 10);
+
+  // Resize listener for responsiveness
+  useEffect(() => {
     const handleResize = () => {
       setLimit(window.innerWidth < 768 ? 6 : 10);
     };
@@ -27,6 +33,7 @@ const ExploreCities = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // GSAP animation
   useGSAP(() => {
     gsap.from(cardsRef.current, {
       y: 60,
@@ -43,8 +50,8 @@ const ExploreCities = () => {
     });
   }, []);
 
-  // Displayed cities
-  const displayedCities = showAll ? cities : cities.slice(0, limit);
+  // Cities to show
+  const displayedCities = showAll ? allCities : allCities.slice(0, limit);
 
   return (
     <section
@@ -55,7 +62,7 @@ const ExploreCities = () => {
         Explore by City 🌆
       </h2>
 
-      {/* ✅ City Cards */}
+      {/* City Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 max-w-6xl w-full">
         {displayedCities.map((city, i) => (
           <div
@@ -73,12 +80,15 @@ const ExploreCities = () => {
             <h3 className="absolute bottom-3 sm:bottom-6 left-3 sm:left-6 text-lg sm:text-2xl font-semibold text-white drop-shadow-lg">
               {city.name}
             </h3>
+            <span className="absolute top-3 right-3 bg-white/80 text-indigo-700 text-xs font-semibold px-2 py-1 rounded-full">
+              {city.state}
+            </span>
           </div>
         ))}
       </div>
 
-      {/* ✅ See All Button */}
-      {!showAll && cities.length > limit && (
+      {/* See All Button */}
+      {!showAll && allCities.length > limit && (
         <button
           onClick={() => setShowAll(true)}
           className="mt-10 px-8 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 hover:scale-105 transition"

@@ -3,6 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaHome, FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -103,9 +104,9 @@ const Profile = () => {
           <span className="font-bold">GetUrStay</span> and reach thousands of
           users.
         </p>
-        <button className="px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition">
+        <Link to={'/profile/list-your-place'} className="px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition">
           List Property
-        </button>
+        </Link>
       </div>
     </div>
   );

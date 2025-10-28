@@ -231,7 +231,7 @@ export const rooms = [
     description:
       "Perfect for families, fully furnished with parking and security in Whitefield.",
     address: "Whitefield, Bengaluru 560066",
-    image: "https://lh5.googleusercontent.com/PE2iGt9ktSX76s-s6xm2v4DOd6L9pfH0G32LKGsgt1K1GL-d0Gu0N6RNOqIhUIe1HZpiKWvSAGUIt_H73UqBToCmMhddyhuIBrBSYuVEhXJBF6xEEUjGGy5kwURuihaWvsfBaj6w",
+    image: "https://imagecdn.99acres.com/media1/23862/4/477244098M-1709451430969.jpg",
     sampleImages: [
       "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?w=600",
       "https://images.unsplash.com/photo-1505692794403-35addc28c3a2?w=600",
