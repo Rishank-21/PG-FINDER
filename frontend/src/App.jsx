@@ -41,6 +41,7 @@ function App() {
   < Route path='/book/:category/:id' element={< BookingForm/>}/>
   < Route path='/payment' element={<PaymentPage/>}/>
   < Route path='/profile/list-your-place' element={<ListYourPlace/>}/>
+  < Route path='/list-your-place' element={< ListYourPlace/>}/>
 </Routes>
 
       <Footer></Footer>

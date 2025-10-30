@@ -2,8 +2,7 @@ import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaHome, FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaRupeeSign, FaHome } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,9 +25,26 @@ const Profile = () => {
     email: "user@gmail.com",
     phone: "+91 9876543210",
     address: "123 MG Road, Pune, Maharashtra, 411001",
-    profileImg:
-      "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+    profileImg: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
   };
+
+  // Dummy listed properties — replace with backend data
+  const myListings = [
+    {
+      id: 1,
+      name: "Ocean View PG",
+      location: "Goa",
+      price: "₹8,000/month",
+      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+    },
+    {
+      id: 2,
+      name: "Elite Stay Apartment",
+      location: "Mumbai",
+      price: "₹12,000/month",
+      image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be",
+    },
+  ];
 
   return (
     <div
@@ -71,16 +87,48 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* My Bookings Section */}
-      <div className="max-w-4xl mx-auto mt-10 bg-white rounded-2xl shadow-md p-6 fade-up">
-        <h2 className="text-xl font-semibold mb-3">My Bookings</h2>
-        <p className="text-gray-600">You have no current bookings.</p>
+      {/* Payment Section */}
+      <div className="max-w-4xl mx-auto mt-10 bg-white rounded-2xl shadow-md p-6 fade-up text-center">
+        <h2 className="text-xl font-semibold mb-3 flex items-center justify-center gap-2">
+          <FaRupeeSign className="text-indigo-600" /> Payment
+        </h2>
+        <p className="text-gray-600 mb-4">
+          Manage your payments or check your transaction history.
+        </p>
+        <button className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+          Go to Payments
+        </button>
       </div>
 
-      {/* Transactions Section */}
+      {/* My Listed Properties */}
       <div className="max-w-4xl mx-auto mt-10 bg-white rounded-2xl shadow-md p-6 fade-up">
-        <h2 className="text-xl font-semibold mb-3">Transactions</h2>
-        <p className="text-gray-600">No transactions found.</p>
+        <h2 className="text-xl font-semibold mb-5 flex items-center gap-2">
+          <FaHome className="text-indigo-600" /> My Listed Properties
+        </h2>
+
+        {myListings.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2">
+            {myListings.map((place) => (
+              <div
+                key={place.id}
+                className="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition"
+              >
+                <img
+                  src={place.image}
+                  alt={place.name}
+                  className="w-full h-40 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="font-semibold text-lg">{place.name}</h3>
+                  <p className="text-gray-600">{place.location}</p>
+                  <p className="text-indigo-700 font-medium mt-1">{place.price}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-600">You haven’t listed any properties yet.</p>
+        )}
       </div>
 
       {/* Help Section */}
@@ -92,21 +140,6 @@ const Profile = () => {
         <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
           Contact Support
         </button>
-      </div>
-
-      {/* List Property Section */}
-      <div className="max-w-4xl mx-auto mt-10 bg-indigo-50 border border-indigo-200 rounded-2xl p-6 text-center fade-up">
-        <h2 className="text-2xl font-semibold mb-4 text-indigo-700">
-          List Your Property
-        </h2>
-        <p className="text-gray-700 mb-4">
-          Have a home, PG, or hotel to rent? List it on{" "}
-          <span className="font-bold">GetUrStay</span> and reach thousands of
-          users.
-        </p>
-        <Link to={'/profile/list-your-place'} className="px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition">
-          List Property
-        </Link>
       </div>
     </div>
   );
