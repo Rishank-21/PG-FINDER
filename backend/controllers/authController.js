@@ -9,7 +9,7 @@ export const registerUser = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
     try {
-        const { username, email, password, role } = req.body;
+        const { username, email, password, role, mobile } = req.body;
         const existingUser = await Auth.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: "User already exists" });
@@ -19,7 +19,8 @@ export const registerUser = async (req, res) => {
             username,
             email,
             password: hashedPassword,
-            role
+            role,
+            mobile
         });
         const token = generateToken(newUser._id);
         res.status(201).json({ message: "User registered successfully", token });

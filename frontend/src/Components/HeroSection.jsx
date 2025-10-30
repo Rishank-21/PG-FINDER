@@ -1,8 +1,6 @@
-import React, { useRef } from 'react'
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
-
-gsap.registerPlugin(useGSAP);
+import React, { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 const HeroSection = () => {
   const container = useRef();
@@ -32,34 +30,30 @@ const HeroSection = () => {
   return (
     <section 
       ref={container} 
-      className="flex  flex-col justify-center items-center text-center min-h-screen  from-blue-50 to-blue-100"
+      className="flex flex-col justify-center items-center text-center mt-18 sm:pt-10  px-4 md:px-8"
     >
-      
-      <h2 id="welcome" className="text-3xl z-1 md:text-4xl font-semibold text-gray-700 mb-3">
+      <h2 id="welcome" className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-700 mb-3">
         Welcome to
       </h2>
 
-      
-      <h1 id="title" className="text-6xl md:text-7xl font-bold text-blue-700 mb-4 flex gap-3">
+      <h1 id="title" className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-blue-700 mb-4 flex flex-wrap justify-center gap-2 md:gap-3">
         <span>Get</span>
         <span>Ur</span>
         <span>Stay</span>
       </h1>
 
-      
-      <p id="tagline" className="text-lg md:text-xl text-gray-600 max-w-xl mb-8">
+      <p id="tagline" className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-full md:max-w-xl mb-8 px-2 md:px-0">
         Find your perfect place — book hotels, PGs, and rental rooms with ease.
       </p>
 
-      
       <button 
         id="exploreBtn" 
-        className="px-8 py-3 bg-blue-600 text-white rounded-full text-lg hover:bg-blue-700 transition-all shadow-md"
+        className="px-6 sm:px-8 py-2 sm:py-3 bg-blue-600 text-white rounded-full text-sm sm:text-lg md:text-lg hover:bg-blue-700 transition-all shadow-md"
       >
         Explore Now
       </button>
     </section>
-  )
-}
+  );
+};
 
 export default HeroSection;

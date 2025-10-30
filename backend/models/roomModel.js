@@ -18,12 +18,33 @@ const roomSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  city : {
+    type: String,
+    required : true
+  },
+  state : {
+    type : String,
+    required : true
+  },
+  category: {
+    type: String,
+    enum: ["Hotel", "PG", "Room"],
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
   images: [
     {
       url: { type: String, required: true },
       public_id: { type: String }, // optional if using Cloudinary
     },
   ],
+  mainImage: {
+    type: String,
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
