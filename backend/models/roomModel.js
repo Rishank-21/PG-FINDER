@@ -6,15 +6,20 @@ const roomSchema = new mongoose.Schema({
     ref: "Auth",
     required: true,
   },
-  title: {
+  name: {
     type: String,
     required: true,
   },
-  rent: {
+  category: {
+    type: String,
+    enum: ["Hotel", "PG", "Room"],
+    required: true,
+  },
+  price: {
     type: Number,
     required: true,
   },
-  location: {
+  address: {
     type: String,
     required: true,
   },
@@ -26,11 +31,7 @@ const roomSchema = new mongoose.Schema({
     type : String,
     required : true
   },
-  category: {
-    type: String,
-    enum: ["Hotel", "PG", "Room"],
-    required: true,
-  },
+  
   description: {
     type: String,
     required: true,

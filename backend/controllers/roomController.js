@@ -19,7 +19,7 @@ const uploadToCloudinary = (fileBuffer) => {
 
 export const createRoom = async (req, res) => {
   try {
-    const { title, rent, location, city, state, category, description } = req.body;
+    const { name, price, adress, city, state, category, description } = req.body;
     const owner = req.user._id;
 
     
@@ -39,9 +39,9 @@ export const createRoom = async (req, res) => {
     }
 
     const room = await Room.create({
-      title,
-      rent,
-      location,
+      name,
+      price,
+      adress,
       owner,
       city,
       state,
@@ -93,15 +93,15 @@ export const getRoomById = async (req, res) => {
 
 export const updateRoom = async (req, res) => {
   try {
-    const { title, rent, location, city, state, category, description } = req.body;
+    const { name, price, adress, city, state, category, description } = req.body;
     const room = await Room.findById(req.params.id);
 
     if (!room) return res.status(404).json({ message: "Room not found" });
 
    
-    if (title) room.title = title;
-    if (rent) room.rent = rent;
-    if (location) room.location = location;
+    if (name) room.name = name;
+    if (price) room.price = price;
+    if (adress) room.adress = adress;
     if (city) room.city = city;
     if (state) room.state = state;
     if (category) room.category = category;
