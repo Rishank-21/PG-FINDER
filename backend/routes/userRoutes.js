@@ -3,6 +3,7 @@ const router = express.Router();
 import { findAllPgs, findAllHotels, findAllRooms, findPgsByCity, findHotelsByCity, findRoomsByCity, findHotelByLocation, findRoomByLocation, findPgByLocation, userBookings, findInCity, findInState } from '../controllers/userController.js';
 import { param } from 'express-validator';
 import { isAuth } from '../middlewares/authMiddleware.js';
+import { feedBackMail } from '../config/mail.js';
 
 router.use(isAuth);
 //public route to get all PGs
@@ -40,5 +41,9 @@ router.get('/state/:state/summary', param('state').notEmpty().withMessage('State
 
 // route to get all bookings of the logged-in user
 router.get('/rooms/bookings', userBookings);
+
+
+router.post('/feedback-mail', feedBackMail);
+
 
 export default router;
